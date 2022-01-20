@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "kindle_word_collector"
+version = "0.1.0"
+description = "Collects words looked up on an Amazon kindle reader, which are stored on its SQLite DB, and adds them to Lexicon"
+authors = ["roboto84 <7658704+roboto84@users.noreply.github.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+python-dotenv = '^0.15.0'
+lexicon = {git = 'https://github.com/roboto84/lexicon.git', rev = '4c4c85c'}
+
+[tool.poetry.dev-dependencies]
+pytest = "^5.2"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
