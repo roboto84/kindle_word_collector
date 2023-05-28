@@ -9,11 +9,10 @@ from bin.kindle_db import KindleDb
 
 
 class KindleWordCollector:
-    def __init__(self, logging_object: Any, webster_key: str, oxford_app_id: str, oxford_key: str,
-                 sql_lite_db_path: str, kindle_sql_lite_db_path: str):
+    def __init__(self, logging_object: Any, webster_key: str, sql_lite_db_path: str, kindle_sql_lite_db_path: str):
         self._logger: logging.Logger = logging_object.getLogger(type(self).__name__)
         self._logger.setLevel(logging.INFO)
-        self._lexicon: Lexicon = Lexicon(webster_key, oxford_app_id, oxford_key, sql_lite_db_path, logging_object)
+        self._lexicon: Lexicon = Lexicon(webster_key, sql_lite_db_path, logging_object)
         self._kindleDb: KindleDb = KindleDb(logging_object, kindle_sql_lite_db_path)
 
     def run_word_collector(self) -> None:
@@ -27,7 +26,7 @@ class KindleWordCollector:
             print(f'\n Number of Words in Kindle DB: {kindle_words_count}')
             print(f'\n Collection definitions and inserting into Lexicon: {len(kindle_words)}')
             for word in kindle_words:
-                word_def: dict = self._lexicon.get_definition(word)
+                word_def: dict = self._lexicon.get_definition(word.lower())
                 if word_def['source'] == 'web':
                     time.sleep(8)
                     web_count += 1
@@ -56,15 +55,16 @@ class KindleWordCollector:
 
 
 if __name__ == '__main__':
-    logging.config.fileConfig(fname=os.path.abspath('kindle_word_collector/bin/logging.conf'), disable_existing_loggers=False)
+    logging.config.fileConfig(
+        fname=os.path.abspath('kindle_word_collector/bin/logging.conf'),
+        disable_existing_loggers=False
+    )
     logger: logging.Logger = logging.getLogger(__name__)
     logger.setLevel(logging.INFO)
 
     try:
         load_dotenv()
         MERRIAM_WEBSTER_API_KEY: str = os.getenv('MERRIAM_WEBSTER_API_KEY')
-        OXFORD_APP_ID: str = os.getenv('OXFORD_APP_ID')
-        OXFORD_APP_KEY: str = os.getenv('OXFORD_APP_KEY')
         SQL_LITE_DB: str = os.getenv('SQL_LITE_DB')
         KINDLE_SQLITE_DB: str = os.getenv('KINDLE_SQLITE_DB')
 
@@ -72,8 +72,6 @@ if __name__ == '__main__':
         word_collector: KindleWordCollector = KindleWordCollector(
             logging,
             MERRIAM_WEBSTER_API_KEY,
-            OXFORD_APP_ID,
-            OXFORD_APP_KEY,
             SQL_LITE_DB,
             KINDLE_SQLITE_DB
         )

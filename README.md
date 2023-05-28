@@ -27,23 +27,18 @@ This project is managed with [Poetry](https://github.com/python-poetry/poetry). 
 Before you begin with `kindle_word_collector` you first need a dictionary API key.
 
 - Merriam-Webster Dictionary (Required) - https://dictionaryapi.com
-- Oxford Dictory (Optional) - https://developer.oxforddictionaries.com
 
 ## Environmental Variables
 `kindle_word_collector` requires that an `.env` file is available in the *same* directory it is running under.
 
 - The format of the `.env` file should contain the following as defined environmental variables:
     - `MERRIAM_WEBSTER_API_KEY` : Key obtained in the previous step.
-    - `OXFORD_APP_ID` : Optional. Oxford App ID obtained in the previous step.
-    - `OXFORD_APP_KEY` : Optional. Oxford App Key obtained in the previous step.
     - `SQL_LITE_DB`: Location of Lexicon SQLite DB.
     - `KINDLE_SQLITE_DB`: Location of Kindle SQLite DB (from the Kindle itself).
 
 - An explained `.env` file format is shown below:
     ```
     MERRIAM_WEBSTER_API_KEY=<Merriam Webster API Key>
-    OXFORD_APP_ID=<Oxford App ID>
-    OXFORD_APP_KEY=<Oxford App Key>
     SQL_LITE_DB=<Lexicon DB Location>
     KINDLE_SQLITE_DB=<Kindle DB Location>
     ```
@@ -51,8 +46,6 @@ Before you begin with `kindle_word_collector` you first need a dictionary API ke
 - A typical `.env` file may look like this:
     ```
     MERRIAM_WEBSTER_API_KEY=9d1e4882-x649-20f4-34h5-7eole23fe931
-    OXFORD_APP_ID=72f1j384
-    OXFORD_APP_KEY=rofdw34h65h33grw73589f3ss2g11fg02
     SQL_LITE_DB=/home/data/lexicon.db
     KINDLE_SQLITE_DB=/run/media/roboto/Kindle/system/vocabulary/vocab.db
     ```

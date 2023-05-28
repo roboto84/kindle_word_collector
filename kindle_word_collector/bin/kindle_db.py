@@ -27,8 +27,7 @@ class KindleDb(SqlLiteDb):
         try:
             conn: Connection = self._db_connect()
             db_cursor: Cursor = conn.cursor()
-            db_words_result: list[list] = db_cursor.execute(
-                """select word from WORDS""").fetchall()
+            db_words_result: list[list] = db_cursor.execute('select word from WORDS').fetchall()
             self._logger.info(f'Retrieved words from Kindle_DB successfully')
             return [row[0] for row in db_words_result]
         except Error as error:
